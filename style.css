@@ -1,0 +1,103 @@
+/* SkiAvax — Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0d0d2b;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#gameContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #0d0d2b 0%, #1a1a3e 100%);
+    position: relative;
+}
+
+#gameCanvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    border-radius: 4px;
+    box-shadow:
+        0 0 40px rgba(232, 65, 66, 0.15),
+        0 4px 20px rgba(0, 0, 0, 0.5);
+    cursor: none;
+}
+
+/* Loading screen */
+#loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #0d0d2b;
+    z-index: 10;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+#loading.hidden {
+    opacity: 0;
+}
+
+.loading-logo {
+    font-size: 60px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-text {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 16px;
+    letter-spacing: 4px;
+}
+
+.loading-sub {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 8px;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    #gameCanvas {
+        border-radius: 0;
+    }
+}
+
+/* Focus outline removal for game canvas */
+#gameCanvas:focus {
+    outline: none;
+}
+
+/* Prevent text selection during gameplay */
+#gameContainer {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: none;
+}

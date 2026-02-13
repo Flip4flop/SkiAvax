@@ -1,0 +1,37 @@
+{
+    "_comment": "SkiAvax Asset Manifest — Map sprite keys to image file paths. Replace paths with your custom images.",
+
+    "player_dir_0": "assets/sprites/player/player_left_fast.png",
+    "player_dir_1": "assets/sprites/player/player_left.png",
+    "player_dir_2": "assets/sprites/player/player_left_slight.png",
+    "player_dir_3": "assets/sprites/player/player_down.png",
+    "player_dir_4": "assets/sprites/player/player_right_slight.png",
+    "player_dir_5": "assets/sprites/player/player_right.png",
+    "player_dir_6": "assets/sprites/player/player_right_fast.png",
+    "player_jump": "assets/sprites/player/player_jump.png",
+    "player_crash": "assets/sprites/player/player_crash.png",
+    "player_caught": "assets/sprites/player/player_caught.png",
+
+    "obstacle_avax_tree": "assets/sprites/obstacles/avax_tree.png",
+    "obstacle_blackhole": "assets/sprites/obstacles/blackhole.png",
+    "obstacle_snowbank": "assets/sprites/obstacles/snowbank.png",
+
+    "collectible_avax": "assets/sprites/collectibles/avax_token.png",
+    "collectible_phar": "assets/sprites/collectibles/phar_token.png",
+
+    "npc_benqi": "assets/sprites/npcs/benqi.png",
+    "npc_salvor": "assets/sprites/npcs/salvor.png",
+    "npc_blaze": "assets/sprites/npcs/blaze.png",
+    "npc_arena": "assets/sprites/npcs/arena.png",
+    "npc_yieldyak": "assets/sprites/npcs/yieldyak.png",
+    "npc_dokyo": "assets/sprites/npcs/dokyo.png",
+    "npc_dexalot": "assets/sprites/npcs/dexalot.png",
+    "npc_pangolin": "assets/sprites/npcs/pangolin.png",
+
+    "boss_lfj": "assets/sprites/boss/lfj_joe.png",
+
+    "ramp": "assets/sprites/obstacles/ramp.png",
+    "gate_flag": "assets/sprites/obstacles/gate_flag.png",
+
+    "ui_logo": "assets/sprites/ui/skiavax_logo.png"
+}
