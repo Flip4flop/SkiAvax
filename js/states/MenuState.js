@@ -117,30 +117,55 @@ export class MenuState {
         // Title
         const titleY = 120 + Math.sin(this.animTimer * 2) * 5;
 
-        // "SKI" text
-        ctx.textAlign = 'center';
+        ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
         ctx.font = 'bold 72px "Segoe UI", Arial, sans-serif';
-        ctx.fillStyle = COLORS.AVAX_WHITE;
-        ctx.fillText('SKI', CANVAS_WIDTH / 2 - 70, titleY);
 
-        // AVAX triangle logo between words
-        const triX = CANVAS_WIDTH / 2 + 5;
-        const triY = titleY;
+        // Measure text widths for precise layout
+        const skiWidth = ctx.measureText('SKI ').width;
+        const vaxWidth = ctx.measureText('VAX').width;
+        const logoSize = 66; // diameter of the AVAX circle logo — matches 72px font height
+        const totalWidth = skiWidth + logoSize + 4 + vaxWidth;
+        const startX = (CANVAS_WIDTH - totalWidth) / 2;
+
+        // "SKI " in white
+        ctx.fillStyle = COLORS.AVAX_WHITE;
+        ctx.fillText('SKI ', startX, titleY);
+
+        // AVAX circle logo as the "A" in AVAX
+        const logoX = startX + skiWidth + logoSize / 2;
+        const logoY = titleY;
+        const logoRadius = logoSize / 2;
+
+        // Red circle
         ctx.fillStyle = COLORS.AVAX_RED;
         ctx.beginPath();
-        ctx.moveTo(triX, triY - 28);
-        ctx.lineTo(triX - 22, triY + 16);
-        ctx.lineTo(triX + 22, triY + 16);
+        ctx.arc(logoX, logoY, logoRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // White triangle "A" inside the circle (AVAX branding)
+        // The AVAX "A" is an upward-pointing triangle with a V-notch at the base
+        ctx.fillStyle = COLORS.AVAX_WHITE;
+        ctx.beginPath();
+        // Main triangle
+        const triH = logoRadius * 1.3;
+        const triW = logoRadius * 1.1;
+        ctx.moveTo(logoX, logoY - triH * 0.65);           // top point
+        ctx.lineTo(logoX - triW * 0.55, logoY + triH * 0.45); // bottom-left
+        ctx.lineTo(logoX - triW * 0.12, logoY + triH * 0.45); // inner left of notch
+        ctx.lineTo(logoX, logoY + triH * 0.15);              // notch apex (the "crossbar")
+        ctx.lineTo(logoX + triW * 0.12, logoY + triH * 0.45); // inner right of notch
+        ctx.lineTo(logoX + triW * 0.55, logoY + triH * 0.45); // bottom-right
         ctx.closePath();
         ctx.fill();
 
-        // "VAX" text
-        ctx.font = 'bold 72px "Segoe UI", Arial, sans-serif';
+        // "VAX" in red
         ctx.fillStyle = COLORS.AVAX_RED;
-        ctx.fillText('VAX', CANVAS_WIDTH / 2 + 80, titleY);
+        ctx.font = 'bold 72px "Segoe UI", Arial, sans-serif';
+        ctx.fillText('VAX', startX + skiWidth + logoSize + 4, titleY);
 
-        // Subtitle
+        // Subtitle — reset alignment to center for all text below the title
+        ctx.textAlign = 'center';
         ctx.font = '16px "Segoe UI", Arial, sans-serif';
         ctx.fillStyle = 'rgba(255,255,255,0.6)';
         ctx.fillText('A SkiFree tribute for the Avalanche community', CANVAS_WIDTH / 2, titleY + 50);

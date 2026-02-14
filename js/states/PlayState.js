@@ -444,10 +444,29 @@ export class PlayState {
 
         // Score (free run) or Time (slalom)
         if (this.mode === 'freerun') {
-            ctx.textAlign = 'center';
+            // Draw mini AVAX logo icon
+            const avaxIconX = CANVAS_WIDTH / 2 - 45;
+            const avaxIconR = 9;
+            ctx.fillStyle = COLORS.AVAX_RED;
+            ctx.beginPath();
+            ctx.arc(avaxIconX, y, avaxIconR, 0, Math.PI * 2);
+            ctx.fill();
+            // Tiny white "A" triangle inside
+            ctx.fillStyle = COLORS.AVAX_WHITE;
+            ctx.beginPath();
+            ctx.moveTo(avaxIconX, y - avaxIconR * 0.7);
+            ctx.lineTo(avaxIconX - avaxIconR * 0.55, y + avaxIconR * 0.5);
+            ctx.lineTo(avaxIconX - avaxIconR * 0.15, y + avaxIconR * 0.5);
+            ctx.lineTo(avaxIconX, y + avaxIconR * 0.1);
+            ctx.lineTo(avaxIconX + avaxIconR * 0.15, y + avaxIconR * 0.5);
+            ctx.lineTo(avaxIconX + avaxIconR * 0.55, y + avaxIconR * 0.5);
+            ctx.closePath();
+            ctx.fill();
+            // Score text
+            ctx.textAlign = 'left';
             ctx.fillStyle = COLORS.PHARAOH_GOLD;
             ctx.font = 'bold 16px "Segoe UI", monospace';
-            ctx.fillText(`⭐ ${formatScore(this.score.totalScore)}`, CANVAS_WIDTH / 2, y);
+            ctx.fillText(`${formatScore(this.score.totalScore)}`, avaxIconX + avaxIconR + 6, y);
         } else {
             ctx.textAlign = 'center';
             ctx.fillStyle = COLORS.PHARAOH_GOLD;

@@ -34,6 +34,9 @@ export class TerrainGenerator {
 
         // Difficulty scaling
         this.difficultyMultiplier = 1.0;
+
+        // Slalom: obstacle-free zone before the first gate
+        this.slalomSafeZoneEnd = 0;
     }
 
     /**
@@ -105,24 +108,29 @@ export class TerrainGenerator {
         const bandWidth = CANVAS_WIDTH * 2; // wider than screen for horizontal movement
         const centerX = CANVAS_WIDTH / 2;
 
-        // Obstacles
-        const obstacleCount = Math.floor(
-            randomRange(1, 4) * this.difficultyMultiplier
-        );
-        for (let i = 0; i < obstacleCount; i++) {
-            const x = randomRange(centerX - bandWidth / 2, centerX + bandWidth / 2);
-            const y = randomRange(fromY, toY);
+        // In slalom mode, skip obstacles/NPCs/ramps in the safe zone before the first gate
+        const inSafeZone = this.mode === 'slalom' && fromY < this.slalomSafeZoneEnd;
 
-            if (this._isTooClose(x, y)) continue;
+        // Obstacles (skip in slalom safe zone)
+        if (!inSafeZone) {
+            const obstacleCount = Math.floor(
+                randomRange(1, 4) * this.difficultyMultiplier
+            );
+            for (let i = 0; i < obstacleCount; i++) {
+                const x = randomRange(centerX - bandWidth / 2, centerX + bandWidth / 2);
+                const y = randomRange(fromY, toY);
 
-            const type = this._randomObstacleType();
-            const size = OBSTACLE_SIZES[type];
-            const obstacle = this.obstacles.acquire();
-            obstacle.init(x, y, size.width, size.height, type);
-            this.recentPositions.push({ x, y });
+                if (this._isTooClose(x, y)) continue;
+
+                const type = this._randomObstacleType();
+                const size = OBSTACLE_SIZES[type];
+                const obstacle = this.obstacles.acquire();
+                obstacle.init(x, y, size.width, size.height, type);
+                this.recentPositions.push({ x, y });
+            }
         }
 
-        // Collectibles
+        // Collectibles (always allowed — even in safe zone)
         const collectChance = TERRAIN.COLLECTIBLE_DENSITY * this.bandHeight * 3;
         if (Math.random() < collectChance) {
             const x = randomRange(centerX - bandWidth / 3, centerX + bandWidth / 3);
@@ -154,8 +162,8 @@ export class TerrainGenerator {
             }
         }
 
-        // Ramps
-        if (Math.random() < TERRAIN.RAMP_DENSITY * this.bandHeight) {
+        // Ramps (skip in slalom safe zone)
+        if (!inSafeZone && Math.random() < TERRAIN.RAMP_DENSITY * this.bandHeight) {
             const x = randomRange(centerX - bandWidth / 3, centerX + bandWidth / 3);
             const y = randomRange(fromY, toY);
 
@@ -166,8 +174,8 @@ export class TerrainGenerator {
             }
         }
 
-        // NPCs
-        if (Math.random() < TERRAIN.NPC_DENSITY * this.bandHeight) {
+        // NPCs (skip in slalom safe zone)
+        if (!inSafeZone && Math.random() < TERRAIN.NPC_DENSITY * this.bandHeight) {
             const x = randomRange(centerX - bandWidth / 3, centerX + bandWidth / 3);
             const y = randomRange(fromY, toY);
 
@@ -185,6 +193,9 @@ export class TerrainGenerator {
      */
     _generateSlalomCourse(camera) {
         const startY = camera.y + 200;
+
+        // Keep the area before the first gate clear of obstacles
+        this.slalomSafeZoneEnd = startY + SLALOM.GATE_SPACING + 50;
 
         for (let i = 0; i < this.totalGates; i++) {
             const gateY = startY + (i + 1) * SLALOM.GATE_SPACING;
