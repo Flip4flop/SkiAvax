@@ -5,5 +5,5 @@
 // 3. Go to Project Settings → API and copy your URL + anon/public key below
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const SUPABASE_URL = '';       // e.g. 'https://abcdefgh.supabase.co'
-export const SUPABASE_ANON_KEY = '';  // Your project's anon/public key
+export const SUPABASE_URL = 'https://tgnvlrbgaoqrybdpofhl.supabase.co';       // e.g. 'https://abcdefgh.supabase.co'
+export const SUPABASE_ANON_KEY = 'sb_publishable_BI4makyxaylSIPbyiIFTpw__FFzTqpH';  // Your project's anon/public key
