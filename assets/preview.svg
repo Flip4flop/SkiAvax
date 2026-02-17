@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a3e"/>
+      <stop offset="60%" stop-color="#2a2a5e"/>
+      <stop offset="100%" stop-color="#0d0d2b"/>
+    </linearGradient>
+    <linearGradient id="snow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8f4f8"/>
+      <stop offset="100%" stop-color="#c8dde8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Mountain silhouettes (back) -->
+  <polygon points="0,630 0,420 120,260 260,370 420,200 580,320 700,180 860,300 980,220 1100,310 1200,260 1200,630"
+           fill="#16163a"/>
+
+  <!-- Mountain silhouettes (front, lighter) -->
+  <polygon points="0,630 0,500 80,400 200,460 340,350 500,430 620,310 750,410 900,340 1050,420 1200,360 1200,630"
+           fill="#1e1e46"/>
+
+  <!-- Snow caps -->
+  <polygon points="120,260 95,310 145,310" fill="url(#snow)" opacity="0.7"/>
+  <polygon points="420,200 390,258 450,258" fill="url(#snow)" opacity="0.7"/>
+  <polygon points="700,180 668,242 732,242" fill="url(#snow)" opacity="0.8"/>
+  <polygon points="980,220 950,278 1010,278" fill="url(#snow)" opacity="0.7"/>
+
+  <!-- Snowflakes -->
+  <g fill="white" opacity="0.25">
+    <circle cx="80"  cy="80"  r="3"/>
+    <circle cx="200" cy="40"  r="2"/>
+    <circle cx="350" cy="100" r="3"/>
+    <circle cx="500" cy="55"  r="2"/>
+    <circle cx="650" cy="90"  r="3"/>
+    <circle cx="820" cy="35"  r="2"/>
+    <circle cx="950" cy="75"  r="3"/>
+    <circle cx="1100" cy="50" r="2"/>
+    <circle cx="1150" cy="110" r="3"/>
+    <circle cx="140" cy="160" r="2"/>
+    <circle cx="290" cy="140" r="3"/>
+    <circle cx="460" cy="170" r="2"/>
+    <circle cx="730" cy="145" r="3"/>
+    <circle cx="880" cy="130" r="2"/>
+    <circle cx="1020" cy="155" r="3"/>
+  </g>
+
+  <!-- AVAX red circle logo (the "A") -->
+  <circle cx="468" cy="295" r="68" fill="#E84142"/>
+  <!-- AVAX triangle A inside circle -->
+  <polygon points="468,244 424,348 444,348 458,320 478,320 492,348 512,348" fill="white"/>
+  <polygon points="458,320 478,320 468,302" fill="#E84142"/>
+
+  <!-- "SKI" text -->
+  <text x="548" y="280" font-family="'Arial Black', Arial, sans-serif"
+        font-weight="900" font-size="110" fill="white" dominant-baseline="auto">SKI</text>
+
+  <!-- "VAX" text in red -->
+  <text x="548" y="348" font-family="'Arial Black', Arial, sans-serif"
+        font-weight="900" font-size="110" fill="#E84142" dominant-baseline="auto">VAX</text>
+
+  <!-- Tagline -->
+  <text x="600" y="400" font-family="Arial, sans-serif" font-size="28"
+        fill="rgba(255,255,255,0.6)" text-anchor="middle">
+    A SkiFree tribute for the Avalanche community
+  </text>
+
+  <!-- Game badges -->
+  <rect x="240" y="440" width="200" height="52" rx="10" fill="rgba(232,65,66,0.2)" stroke="#E84142" stroke-width="1.5"/>
+  <text x="340" y="471" font-family="Arial, sans-serif" font-size="22" font-weight="bold"
+        fill="white" text-anchor="middle">🔺 Collect AVAX</text>
+
+  <rect x="500" y="440" width="200" height="52" rx="10" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+  <text x="600" y="471" font-family="Arial, sans-serif" font-size="22" font-weight="bold"
+        fill="white" text-anchor="middle">⛷️ Ski &amp; Dodge</text>
+
+  <rect x="760" y="440" width="200" height="52" rx="10" fill="rgba(123,63,228,0.2)" stroke="#7B3FE4" stroke-width="1.5"/>
+  <text x="860" y="471" font-family="Arial, sans-serif" font-size="22" font-weight="bold"
+        fill="white" text-anchor="middle">👹 Escape Boss</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="570" width="1200" height="60" fill="rgba(232,65,66,0.12)"/>
+  <text x="600" y="606" font-family="Arial, sans-serif" font-size="22"
+        fill="rgba(255,255,255,0.5)" text-anchor="middle">
+    Play free • No wallet required • Built on Avalanche
+  </text>
+
+  <!-- Hashtag accent -->
+  <text x="1150" y="600" font-family="Arial, sans-serif" font-size="16"
+        fill="rgba(232,65,66,0.6)" text-anchor="end">#SkiAvax</text>
+</svg>
