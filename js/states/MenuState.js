@@ -217,7 +217,14 @@ export class MenuState {
         ctx.font = '13px "Segoe UI", Arial, sans-serif';
         ctx.fillStyle = 'rgba(255,255,255,0.35)';
         ctx.fillText('↑↓ Select Mode  •  Enter/Space to Start', CANVAS_WIDTH / 2, ctrlY);
-        ctx.fillText('Arrow Keys: Steer  •  Space: Jump  •  F: Speed Boost  •  P: Pause', CANVAS_WIDTH / 2, ctrlY + 22);
+
+        // Main controls
+        ctx.fillText('Arrow Keys: Steer  •  Space: Jump  •  P: Pause', CANVAS_WIDTH / 2, ctrlY + 22);
+
+        // Boost instruction (highlighted)
+        ctx.font = 'bold 14px "Segoe UI", Arial, sans-serif';
+        ctx.fillStyle = COLORS.AVAX_RED;
+        ctx.fillText('Hold F to BOOST — Essential for outrunning the monster!', CANVAS_WIDTH / 2, ctrlY + 44);
 
         // Credits
         ctx.font = '11px "Segoe UI", Arial, sans-serif';
