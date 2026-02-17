@@ -53,8 +53,20 @@ export class PlayState {
         // Create player at center-top of world
         this.player = new Player(CANVAS_WIDTH / 2, 100);
 
+        // Assign player sprites from AssetManager
+        for (let dir = 0; dir <= 6; dir++) {
+            const spriteKey = `player_dir_${dir}`;
+            const sprite = this.game.assets.get(spriteKey);
+            if (sprite) {
+                this.player.sprites[spriteKey] = sprite;
+            }
+        }
+        this.player.sprites['player_jump'] = this.game.assets.get('player_jump');
+        this.player.sprites['player_crash'] = this.game.assets.get('player_crash');
+        this.player.sprites['player_caught'] = this.game.assets.get('player_caught');
+
         // Create terrain generator
-        this.terrain = new TerrainGenerator(this.mode);
+        this.terrain = new TerrainGenerator(this.mode, this.game.assets);
 
         // Create collision manager
         this.collision = new CollisionManager();
@@ -65,6 +77,9 @@ export class PlayState {
         // Boss (created but not active until trigger)
         this.boss = new Boss(0, 0);
         this.boss.isActive = false;
+
+        // Assign boss sprite from AssetManager
+        this.boss.sprite = this.game.assets.get('boss_lfj');
 
         // Camera initial position
         this.camera.follow(this.player);
