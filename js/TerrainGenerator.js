@@ -13,8 +13,9 @@ import {
 import { randomRange, randomInt, randomChoice } from './utils/helpers.js';
 
 export class TerrainGenerator {
-    constructor(mode = 'freerun') {
+    constructor(mode = 'freerun', assets = null) {
         this.mode = mode;
+        this.assets = assets;
         this.lastGeneratedY = 0; // furthest Y we've generated to
         this.bandHeight = TERRAIN.SPAWN_BAND_HEIGHT;
 
@@ -126,6 +127,13 @@ export class TerrainGenerator {
                 const size = OBSTACLE_SIZES[type];
                 const obstacle = this.obstacles.acquire();
                 obstacle.init(x, y, size.width, size.height, type);
+
+                // Assign sprite from AssetManager
+                if (this.assets) {
+                    const spriteKey = `obstacle_${type}`;
+                    obstacle.sprite = this.assets.get(spriteKey);
+                }
+
                 this.recentPositions.push({ x, y });
             }
         }
@@ -140,6 +148,13 @@ export class TerrainGenerator {
                 const type = Math.random() < 0.15 ? COLLECTIBLE_TYPES.PHAR : COLLECTIBLE_TYPES.AVAX;
                 const collectible = this.collectibles.acquire();
                 collectible.init(x, y, type);
+
+                // Assign sprite from AssetManager
+                if (this.assets) {
+                    const spriteKey = `collectible_${type}`;
+                    collectible.sprite = this.assets.get(spriteKey);
+                }
+
                 this.recentPositions.push({ x, y });
             }
         }
@@ -157,6 +172,12 @@ export class TerrainGenerator {
                 if (!this._isTooClose(cx, cy)) {
                     const col = this.collectibles.acquire();
                     col.init(cx, cy, COLLECTIBLE_TYPES.AVAX);
+
+                    // Assign sprite from AssetManager
+                    if (this.assets) {
+                        col.sprite = this.assets.get('collectible_avax');
+                    }
+
                     this.recentPositions.push({ x: cx, y: cy });
                 }
             }
@@ -170,6 +191,12 @@ export class TerrainGenerator {
             if (!this._isTooClose(x, y)) {
                 const ramp = this.ramps.acquire();
                 ramp.init(x, y);
+
+                // Assign sprite from AssetManager
+                if (this.assets) {
+                    ramp.sprite = this.assets.get('ramp');
+                }
+
                 this.recentPositions.push({ x, y });
             }
         }
@@ -183,6 +210,13 @@ export class TerrainGenerator {
                 const npcType = randomChoice(NPC_TYPES);
                 const npc = this.npcs.acquire();
                 npc.init(x, y, npcType);
+
+                // Assign sprite from AssetManager
+                if (this.assets) {
+                    const spriteKey = `npc_${npcType}`;
+                    npc.sprite = this.assets.get(spriteKey);
+                }
+
                 this.recentPositions.push({ x, y });
             }
         }
@@ -205,6 +239,12 @@ export class TerrainGenerator {
 
             const gate = this.gates.acquire();
             gate.init(gateX, gateY, i + 1);
+
+            // Assign sprite from AssetManager
+            if (this.assets) {
+                gate.sprite = this.assets.get('gate_flag');
+            }
+
             this.gatesGenerated++;
         }
     }

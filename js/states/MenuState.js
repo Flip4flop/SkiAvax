@@ -61,7 +61,12 @@ export class MenuState {
             this.game.startGame('slalom');
         }
 
-        // Mouse click on mode buttons
+        // Leaderboard shortcut
+        if (input.isKeyJustPressed('KeyL')) {
+            this.game.showLeaderboard();
+        }
+
+        // Mouse click on mode buttons and leaderboard
         if (input.mouse.justClicked) {
             const canvas = this.game.canvas;
             const rect = canvas.getBoundingClientRect();
@@ -78,6 +83,13 @@ export class MenuState {
                     this.game.startGame(i === 0 ? 'freerun' : 'slalom');
                     break;
                 }
+            }
+
+            // Leaderboard button click
+            const lbY = menuStartY + this.modes.length * 60 + 55;
+            if (mx > CANVAS_WIDTH / 2 - 100 && mx < CANVAS_WIDTH / 2 + 100 &&
+                my > lbY - 18 && my < lbY + 18) {
+                this.game.showLeaderboard();
             }
         }
     }
@@ -212,12 +224,37 @@ export class MenuState {
             ctx.fillText('Race through gates against the clock. Miss a gate = +5s penalty.', CANVAS_WIDTH / 2, descY);
         }
 
+        // Leaderboard button
+        if (this.game.leaderboard && this.game.leaderboard.isConfigured) {
+            const lbY = menuStartY + this.modes.length * 60 + 55;
+            const lbAlpha = 0.12 + Math.sin(this.animTimer * 2) * 0.04;
+            ctx.fillStyle = `rgba(255, 215, 0, ${lbAlpha})`;
+            ctx.beginPath();
+            ctx.roundRect(CANVAS_WIDTH / 2 - 100, lbY - 18, 200, 34, 8);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 215, 0, 0.4)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.roundRect(CANVAS_WIDTH / 2 - 100, lbY - 18, 200, 34, 8);
+            ctx.stroke();
+            ctx.font = 'bold 13px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = COLORS.PHARAOH_GOLD;
+            ctx.fillText('🏆 Leaderboard [L]', CANVAS_WIDTH / 2, lbY);
+        }
+
         // Controls
         const ctrlY = CANVAS_HEIGHT - 100;
         ctx.font = '13px "Segoe UI", Arial, sans-serif';
         ctx.fillStyle = 'rgba(255,255,255,0.35)';
         ctx.fillText('↑↓ Select Mode  •  Enter/Space to Start', CANVAS_WIDTH / 2, ctrlY);
-        ctx.fillText('Arrow Keys: Steer  •  Space: Jump  •  F: Speed Boost  •  P: Pause', CANVAS_WIDTH / 2, ctrlY + 22);
+
+        // Main controls
+        ctx.fillText('Arrow Keys: Steer  •  Space: Jump  •  P: Pause', CANVAS_WIDTH / 2, ctrlY + 22);
+
+        // Boost instruction (highlighted)
+        ctx.font = 'bold 14px "Segoe UI", Arial, sans-serif';
+        ctx.fillStyle = COLORS.AVAX_RED;
+        ctx.fillText('Hold F to BOOST — Essential for outrunning the monster!', CANVAS_WIDTH / 2, ctrlY + 44);
 
         // Credits
         ctx.font = '11px "Segoe UI", Arial, sans-serif';

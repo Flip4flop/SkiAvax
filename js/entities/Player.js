@@ -246,8 +246,18 @@ export class Player extends Entity {
             return; // skip render for blink effect
         }
 
-        // Check if we have a sprite for current direction
-        const spriteKey = `player_dir_${this.direction}`;
+        // Determine which sprite to use based on player state
+        let spriteKey;
+        if (this.state === PLAYER_STATE.JUMPING) {
+            spriteKey = 'player_jump';
+        } else if (this.state === PLAYER_STATE.CRASHING) {
+            spriteKey = 'player_crash';
+        } else if (this.state === PLAYER_STATE.CAUGHT) {
+            spriteKey = 'player_caught';
+        } else {
+            spriteKey = `player_dir_${this.direction}`;
+        }
+
         if (this.sprites[spriteKey]) {
             ctx.drawImage(
                 this.sprites[spriteKey],
