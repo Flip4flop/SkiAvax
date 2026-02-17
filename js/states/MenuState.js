@@ -61,7 +61,12 @@ export class MenuState {
             this.game.startGame('slalom');
         }
 
-        // Mouse click on mode buttons
+        // Leaderboard shortcut
+        if (input.isKeyJustPressed('KeyL')) {
+            this.game.showLeaderboard();
+        }
+
+        // Mouse click on mode buttons and leaderboard
         if (input.mouse.justClicked) {
             const canvas = this.game.canvas;
             const rect = canvas.getBoundingClientRect();
@@ -78,6 +83,13 @@ export class MenuState {
                     this.game.startGame(i === 0 ? 'freerun' : 'slalom');
                     break;
                 }
+            }
+
+            // Leaderboard button click
+            const lbY = menuStartY + this.modes.length * 60 + 55;
+            if (mx > CANVAS_WIDTH / 2 - 100 && mx < CANVAS_WIDTH / 2 + 100 &&
+                my > lbY - 18 && my < lbY + 18) {
+                this.game.showLeaderboard();
             }
         }
     }
@@ -210,6 +222,24 @@ export class MenuState {
             ctx.fillText('Ski downhill, collect AVAX tokens, dodge obstacles, survive the boss!', CANVAS_WIDTH / 2, descY);
         } else {
             ctx.fillText('Race through gates against the clock. Miss a gate = +5s penalty.', CANVAS_WIDTH / 2, descY);
+        }
+
+        // Leaderboard button
+        if (this.game.leaderboard && this.game.leaderboard.isConfigured) {
+            const lbY = menuStartY + this.modes.length * 60 + 55;
+            const lbAlpha = 0.12 + Math.sin(this.animTimer * 2) * 0.04;
+            ctx.fillStyle = `rgba(255, 215, 0, ${lbAlpha})`;
+            ctx.beginPath();
+            ctx.roundRect(CANVAS_WIDTH / 2 - 100, lbY - 18, 200, 34, 8);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 215, 0, 0.4)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.roundRect(CANVAS_WIDTH / 2 - 100, lbY - 18, 200, 34, 8);
+            ctx.stroke();
+            ctx.font = 'bold 13px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = COLORS.PHARAOH_GOLD;
+            ctx.fillText('🏆 Leaderboard [L]', CANVAS_WIDTH / 2, lbY);
         }
 
         // Controls

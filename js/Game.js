@@ -3,10 +3,12 @@
 import { Camera } from './Camera.js';
 import { InputManager } from './InputManager.js';
 import { AssetManager } from './AssetManager.js';
+import { LeaderboardManager } from './LeaderboardManager.js';
 import { MenuState } from './states/MenuState.js';
 import { PlayState } from './states/PlayState.js';
 import { PauseState } from './states/PauseState.js';
 import { GameOverState } from './states/GameOverState.js';
+import { LeaderboardState } from './states/LeaderboardState.js';
 import { CANVAS_WIDTH, CANVAS_HEIGHT, GAME_STATE } from './utils/constants.js';
 
 export class Game {
@@ -16,6 +18,7 @@ export class Game {
         this.camera = new Camera();
         this.input = new InputManager();
         this.assets = new AssetManager();
+        this.leaderboard = new LeaderboardManager();
 
         // Set canvas size
         this.canvas.width = CANVAS_WIDTH;
@@ -27,6 +30,7 @@ export class Game {
             [GAME_STATE.PLAYING]: new PlayState(this),
             [GAME_STATE.PAUSED]: new PauseState(this),
             [GAME_STATE.GAME_OVER]: new GameOverState(this),
+            [GAME_STATE.LEADERBOARD]: new LeaderboardState(this),
         };
 
         this.currentState = GAME_STATE.MENU;
@@ -153,6 +157,14 @@ export class Game {
     returnToMenu() {
         this.currentState = GAME_STATE.MENU;
         this.states[GAME_STATE.MENU].enter();
+    }
+
+    /**
+     * Open the global leaderboard
+     */
+    showLeaderboard(highlightName = null) {
+        this.currentState = GAME_STATE.LEADERBOARD;
+        this.states[GAME_STATE.LEADERBOARD].enter(highlightName);
     }
 
     /**

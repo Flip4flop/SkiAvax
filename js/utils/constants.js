@@ -146,6 +146,7 @@ export const GAME_STATE = {
     PLAYING: 'playing',
     PAUSED: 'paused',
     GAME_OVER: 'gameOver',
+    LEADERBOARD: 'leaderboard',
 };
 
 // Pixels per meter (for distance display)
